@@ -13,3 +13,17 @@ var would = function(action){
     result.action = action;
     return result;
 }
+
+var all = function(){
+    var result = {}
+    var condition_arguments = arguments;
+    result.pass = function(){
+        var pass_or_not = false;
+
+        for (index in condition_arguments){
+            pass_or_not |= condition_arguments[index]();
+        }
+        return pass_or_not;
+    }
+    return result;
+}

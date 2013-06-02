@@ -38,6 +38,22 @@ describe('Logic Would',function(){
 
 
 
+    describe('when condition combinator',function(){
+        it("should do when given all conditions is true",function(){
+            var condition_a_is_true = function(){
+                return true;
+            };
+            var condition_b_is_true = function(){
+                return true;
+            };
+            would(be_called)
+                .when(all(condition_a_is_true,condition_b_is_true).pass)();
+            expect(called_flag).toBe(true);
+
+        });
+
+
+    });
 
 
 })
