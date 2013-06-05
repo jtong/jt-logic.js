@@ -1,14 +1,16 @@
 
 var all = function(){
     var result = {}
-    var conditions = []
+    result.conditions = []
     if(arguments.length == 1){
-        conditions = [].concat(arguments[0])
+        result.conditions = [].concat(arguments[0])
     } else{
-        conditions = arguments;
+        result.conditions = arguments;
     }
+
     result.pass = function(){
         var pass_or_not = true;
+        var conditions = this.conditions;
         for (var index in conditions){
             var current_pass = conditions[index]();
             pass_or_not = pass_or_not && current_pass;
@@ -19,7 +21,9 @@ var all = function(){
                 conditions[index].pass_handler();
             }
         }
-        return pass_or_not;
+        if(pass_or_not){
+            this.action();
+        };
     }
     return result;
 }

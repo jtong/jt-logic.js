@@ -17,7 +17,7 @@ describe('when condition combinator while judging on context',function(){
             it.has_condition(a).when_not_pass_call(a_handler);
             it.has_condition(b).when_not_pass_call(b_handler);
             would(be_called)
-                .when(all(conditions_in(it)).pass)();
+                .when(all(conditions_in(it))).pass();
         });
 
 

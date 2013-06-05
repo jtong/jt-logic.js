@@ -18,7 +18,7 @@ describe('when condition combinator while judging',function(){
         var condition_b = condition(b).when_not_pass_call(b_handler);
 
         would(be_called)
-            .when(all(condition_a,condition_b).pass)();
+            .when(all(condition_a,condition_b)).pass();
 
         expect(called_flag).toBe(false);
         expect(condition_a_handled).toBeUndefined();
@@ -37,7 +37,7 @@ describe('when condition combinator while judging',function(){
         var condition_b = condition(b).when_pass_call(b_handler);
 
         would(be_called)
-            .when(all(condition_a,condition_b).pass)();
+            .when(all(condition_a,condition_b)).pass();
 
         expect(called_flag).toBe(false);
         expect(condition_a_handled).toBeUndefined();

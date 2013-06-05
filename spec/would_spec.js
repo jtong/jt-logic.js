@@ -20,14 +20,14 @@ describe('Logic Would',function(){
 
     it("should do when given condition is true",function(){
         would(be_called)
-            .when(condition_is_true)();
+            .when(condition_is_true).pass();
         expect(called_flag).toBe(true);
 
     });
 
     it("should not do when given condition is false",function(){
         would(be_called)
-            .when(condition_is_false)();
+            .when(condition_is_false).pass();
         expect(called_flag).toBe(false);
 
     });

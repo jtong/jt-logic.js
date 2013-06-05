@@ -12,7 +12,7 @@ describe('when condition combinator',function(){
             return true;
         };
         would(be_called)
-            .when(all(condition_a_is_true,condition_b_is_true).pass)();
+            .when(all(condition_a_is_true,condition_b_is_true)).pass();
         expect(called_flag).toBe(true);
 
     });
@@ -25,7 +25,7 @@ describe('when condition combinator',function(){
             return false;
         };
         would(not_be_called)
-            .when(all(condition_a_is_true,condition_b_is_false).pass)();
+            .when(all(condition_a_is_true,condition_b_is_false)).pass();
         expect(called_flag).toBe(false);
 
     });
