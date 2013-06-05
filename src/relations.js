@@ -74,13 +74,13 @@ function AnyConditions(){
 AnyConditions.prototype = new AllConditions();
 
 AnyConditions.prototype.pass = function(){
-    var all_pass  = false;
-    var all_pass_judge = function(current_condition_pass){
-        all_pass = all_pass || current_condition_pass;
-        return all_pass;
+    var any_pass  = false;
+    var any_pass_judge = function(current_condition_pass){
+        any_pass = any_pass || current_condition_pass;
+        return any_pass;
     }
-    this.go_through_conditions(all_pass_judge);
-    if(all_pass){
+    this.go_through_conditions(any_pass_judge);
+    if(any_pass){
         this.action();
     };
 }
