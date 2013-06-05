@@ -3,6 +3,11 @@ var all = function(){
     result.init(arguments);
     return result;
 }
+var any = function(){
+    var result = new AnyConditions();
+    result.init(arguments);
+    return result;
+}
 
 function Conditions(){
     this.conditions = [];
@@ -57,6 +62,25 @@ AllConditions.prototype.not_pass = function(){
     this.go_through_conditions(all_pass_judge);
 
     if(!all_pass){
+        this.action();
+    };
+}
+
+
+function AnyConditions(){
+    
+}
+
+AnyConditions.prototype = new AllConditions();
+
+AnyConditions.prototype.pass = function(){
+    var all_pass  = false;
+    var all_pass_judge = function(current_condition_pass){
+        all_pass = all_pass || current_condition_pass;
+        return all_pass;
+    }
+    this.go_through_conditions(all_pass_judge);
+    if(all_pass){
         this.action();
     };
 }
