@@ -1,12 +1,4 @@
 describe('when condition combinator',function(){
-    var called_flag;
-    function be_called(){
-        called_flag = true;
-    }
-
-    function not_be_called(){
-        called_flag = true;
-    }
 
     beforeEach(function(){
         called_flag = false;

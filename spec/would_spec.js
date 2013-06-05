@@ -1,8 +1,4 @@
 describe('Logic Would',function(){
-    var called_flag;
-    function be_called(){
-        called_flag = true;
-    }
 
     function condition_is_true(){
         return true;

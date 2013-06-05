@@ -1,25 +1,9 @@
 describe('when condition combinator while judging on context',function(){
-    var called_flag;
-
-    function be_called(){
-        called_flag = true;
-    }
-
-    var a_handler = function(){
-        condition_a_handle_out_context = "a not null";
-    }
-
-    var b_handler = function(){
-        condition_b_handle_out_context =  "b not null";
-    }
-
-    var condition_a_handle_out_context;
-    var condition_b_handle_out_context;
 
     beforeEach(function(){
         called_flag = false;
-        condition_a_handle_out_context = undefined;
-        condition_b_handle_out_context = undefined;
+        condition_a_handled = undefined;
+        condition_b_handled = undefined;
     })
 
     it("should do when given all conditions is true",function(){
@@ -38,7 +22,7 @@ describe('when condition combinator while judging on context',function(){
 
 
         expect(called_flag).toBe(false);
-        expect(condition_a_handle_out_context).toBe("a not null");
-        expect(condition_b_handle_out_context).toBe("b not null");
+        expect(condition_a_handled).toBe("a not null");
+        expect(condition_b_handled).toBe("b not null");
     });
 });

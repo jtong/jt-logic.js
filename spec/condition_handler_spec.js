@@ -1,29 +1,9 @@
 describe('when condition combinator while judging',function(){
-    var called_flag;
-
-    function be_called(){
-        called_flag = true;
-    }
-
-    function not_be_called(){
-        called_flag = true;
-    }
-
-    var a_handler = function(){
-        condition_a_handle = "a not null";
-    }
-
-    var b_handler = function(){
-        condition_b_handle = "b not null";
-    }
-
-    var condition_a_handle;
-    var condition_b_handle;
 
     beforeEach(function(){
         called_flag = false;
-        condition_a_handle = undefined;
-        condition_b_handle = undefined;
+        condition_a_handled = undefined;
+        condition_b_handled = undefined;
     })
 
     it("should not do when given any conditions is false and for the false one its handler was called",function(){
@@ -41,8 +21,8 @@ describe('when condition combinator while judging',function(){
             .when(all(condition_a,condition_b).pass)();
 
         expect(called_flag).toBe(false);
-        expect(condition_a_handle).toBeUndefined();
-        expect(condition_b_handle).toBe("b not null");
+        expect(condition_a_handled).toBeUndefined();
+        expect(condition_b_handled).toBe("b not null");
     });
 
     it("should not do when given any conditions is false and for the true one its handler was called",function(){
@@ -60,8 +40,8 @@ describe('when condition combinator while judging',function(){
             .when(all(condition_a,condition_b).pass)();
 
         expect(called_flag).toBe(false);
-        expect(condition_a_handle).toBeUndefined();
-        expect(condition_b_handle).toBe("b not null");
+        expect(condition_a_handled).toBeUndefined();
+        expect(condition_b_handled).toBe("b not null");
     });
 
 
