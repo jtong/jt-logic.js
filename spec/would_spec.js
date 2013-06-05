@@ -18,17 +18,31 @@ describe('Logic Would',function(){
 
     });
 
-    it("should do when given condition is true",function(){
+    it("should do when rule is pass and given condition is true",function(){
         would(be_called)
             .when(condition_is_true).pass();
         expect(called_flag).toBe(true);
 
     });
 
-    it("should not do when given condition is false",function(){
+    it("should not do when rule is pass but given condition is false",function(){
         would(be_called)
             .when(condition_is_false).pass();
         expect(called_flag).toBe(false);
+
+    });
+
+    it("should not do when rule is not pass given condition is true",function(){
+        would(not_be_called)
+            .when(condition_is_true).not_pass();
+        expect(called_flag).toBe(false);
+
+    });
+
+    it("should do when rule is not pass given condition is false",function(){
+        would(be_called)
+            .when(condition_is_false).not_pass();
+        expect(called_flag).toBe(true);
 
     });
 })

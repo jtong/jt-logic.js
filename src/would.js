@@ -1,11 +1,3 @@
-
-var when = function(condition){
-  if(condition()){
-      return this.action;
-  }
-  return function(){}
-}
-
 var would = function(action){
     var result;
     if(action.conditions){
@@ -25,6 +17,11 @@ var would = function(action){
         this.condition = condition_or_conditions;
         this.pass = function(){
             if(this.condition()){
+                this.action();
+            }
+        }
+        this.not_pass = function(){
+            if(!this.condition()){
                 this.action();
             }
         }
