@@ -5,7 +5,7 @@ function Context(){
 Context.prototype.has_condition = function(condition){
     this.conditions.push(condition);
     condition.when_not_pass_call = function(handler){
-        condition.handler = handler;
+        condition.not_pass_handler = handler;
         return condition;
     }
     return condition;
@@ -43,12 +43,15 @@ var all = function(){
         conditions = arguments;
     }
     result.pass = function(){
-        var pass_or_not = false;
+        var pass_or_not = true;
         for (var index in conditions){
             var current_pass = conditions[index]();
-            pass_or_not = pass_or_not || current_pass;
-            if(!current_pass && conditions[index].handler){
-                conditions[index].handler();
+            pass_or_not = pass_or_not && current_pass;
+            if(!current_pass && conditions[index].not_pass_handler){
+                conditions[index].not_pass_handler();
+            }
+            if(current_pass && conditions[index].pass_handler){
+                conditions[index].pass_handler();
             }
         }
         return pass_or_not;
@@ -59,7 +62,11 @@ var all = function(){
 var condition = function(condition_function){
   var result = condition_function;
   result.when_not_pass_call = function(handler){
-      result.handler = handler;
+      result.not_pass_handler = handler;
+      return result;
+  }
+  result.when_pass_call = function(handler){
+      result.pass_handler = handler;
       return result;
   }
   return result;
