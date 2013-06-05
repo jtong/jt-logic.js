@@ -31,13 +31,6 @@ describe('Logic Would',function(){
         expect(called_flag).toBe(false);
 
     });
-
-
-
-
-
-
-
 })
 
 //pass_handler
