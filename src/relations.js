@@ -71,7 +71,7 @@ function AnyConditions(){
     
 }
 
-AnyConditions.prototype = new AllConditions();
+AnyConditions.prototype = new Conditions();
 
 AnyConditions.prototype.pass = function(){
     var any_pass  = false;
@@ -81,6 +81,18 @@ AnyConditions.prototype.pass = function(){
     }
     this.go_through_conditions(any_pass_judge);
     if(any_pass){
+        this.action();
+    };
+}
+
+AnyConditions.prototype.not_pass = function(){
+    var any_pass  = true;
+    var any_pass_judge = function(current_condition_pass){
+        any_pass = any_pass && current_condition_pass;
+        return any_pass;
+    }
+    this.go_through_conditions(any_pass_judge);
+    if(!any_pass){
         this.action();
     };
 }
