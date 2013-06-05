@@ -1,12 +1,18 @@
+function Conditions(){
+    this.conditions = [];
+}
+
+Conditions.prototype.init = function(args){
+    if(args.length == 1){
+        this.conditions = [].concat(args[0])
+    } else{
+        this.conditions = args;
+    }
+}
 
 var all = function(){
-    var result = {}
-    result.conditions = []
-    if(arguments.length == 1){
-        result.conditions = [].concat(arguments[0])
-    } else{
-        result.conditions = arguments;
-    }
+    var result = new Conditions();
+    result.init(arguments)
 
     result.go_through_conditions = function(all_pass_judge) {
         var conditions = this.conditions;
