@@ -39,7 +39,7 @@ describe('Logic Would',function(){
 
     });
 
-    it("should do when rule is not pass given condition is false",function(){
+    it("should do when rule is not pass and given condition is false",function(){
         would(be_called)
             .when(condition_is_false).not_pass();
         expect(called_flag).toBe(true);

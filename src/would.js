@@ -32,3 +32,8 @@ var would = function(action){
 }
 
 
+var not = function(condition){
+    return function(){
+        return !condition();
+    }
+}
