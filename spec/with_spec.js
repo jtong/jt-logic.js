@@ -21,8 +21,8 @@ describe('Logic With',function(){
 
     beforeEach(function(){
         called_flag = false;
-        var param_handle1 = undefined;
-        var param_handle2 = undefined;
+        param_handle1 = undefined;
+        param_handle2 = undefined;
     })
 
     it("should do when only call would with params",function(){
@@ -54,6 +54,16 @@ describe('Logic With',function(){
             .when(all(condition_is_true, condition_is_true)).pass();
         expect(param_handle1).toBe(param1_flag);
         expect(param_handle2).toBe(param2_flag);
+
+    });
+    it("should do with params when rule is not pass given all condition is true",function(){
+        var param1_flag = "param 1";
+        var param2_flag = "param 2";
+        would(be_called_need_params)
+            .with(param1_flag, param2_flag)
+            .when(all(condition_is_true, condition_is_false)).pass();
+        expect(param_handle1).toBeUndefined();
+        expect(param_handle2).toBeUndefined();
 
     });
 

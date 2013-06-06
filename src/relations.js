@@ -49,7 +49,7 @@ AllConditions.prototype.pass = function(){
     }
     this.go_through_conditions(all_pass_judge);
     if(all_pass){
-        this.action();
+        this.action.apply(null, this.action_args);
     };
 }
 
@@ -62,7 +62,7 @@ AllConditions.prototype.not_pass = function(){
     this.go_through_conditions(all_pass_judge);
 
     if(!all_pass){
-        this.action();
+        this.action.apply(null, this.action_args);
     };
 }
 
@@ -81,7 +81,7 @@ AnyConditions.prototype.pass = function(){
     }
     this.go_through_conditions(any_pass_judge);
     if(any_pass){
-        this.action();
+        this.action.apply(null, this.action_args);
     };
 }
 
@@ -93,6 +93,6 @@ AnyConditions.prototype.not_pass = function(){
     }
     this.go_through_conditions(any_pass_judge);
     if(!any_pass){
-        this.action();
+        this.action.apply(null, this.action_args);
     };
 }
