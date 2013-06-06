@@ -42,12 +42,31 @@ describe('Logic With',function(){
     it("should do when only call would with params",function(){
         var param1_flag = "param 1";
         var param2_flag = "param 2";
+
         var condition_a = condition(condition_is_false)
             .when_not_pass_call(be_called_need_params)
             .with(param1_flag,param2_flag);
 
         would(be_called)
             .when(all(condition_a)).pass();
+        expect(param_handle1).toBe(param1_flag);
+        expect(param_handle2).toBe(param2_flag);
+
+    });
+
+    it("should do when only call would with params in context",function(){
+        var param1_flag = "param 1";
+        var param2_flag = "param 2";
+
+        on_context(function(it){
+            it.has_condition(condition_is_false)
+                .when_not_pass_call(be_called_need_params)
+                .with(param1_flag,param2_flag);
+
+            would(be_called)
+                .when(all(conditions_in(it))).pass();
+        })
+
         expect(param_handle1).toBe(param1_flag);
         expect(param_handle2).toBe(param2_flag);
 

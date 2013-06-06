@@ -2,9 +2,9 @@ function Context(){
     this.conditions = [];
 }
 
-Context.prototype.has_condition = function(condition){
-    this.conditions.push(condition);
-    return _build_condition_handler(condition);
+Context.prototype.has_condition = function(condition_function){
+    this.conditions.push(condition_function);
+    return condition(condition_function);
 }
 var on_context = function(express_in_context){
     express_in_context(new Context);
