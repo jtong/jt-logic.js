@@ -1,4 +1,7 @@
-#样例1
+这是一个关于逻辑的DSL,使用该DSL,会强迫我们把参与逻辑运算的代码尽量函数化,函数化之后就可以很低成本的扩展或关闭功能.
+该DSL兼具DSL的
+适用于根据客户要求经常修改逻辑的场景.
+下面的代码都是在真实的使用场景中抽离出来的:
 
     on_context(function(it){
          it.has_condition(is_apply).with(message)
@@ -44,3 +47,64 @@
         bid_response.process_base_no_bid_status();
     }
 而且会把某些问题明显的暴露出来,比如很明显的看出所有的函数都依赖message
+如果遇到可能会组合的逻辑时,这些逻辑DSL会使得组合和拆解更加容易,最主要的还是把顶层逻辑都展示出来了,适用于比较重要且需要变化的逻辑.
+比如下面的情况,是上面情况中把所有的处理函数inline之后,再重构的结果:
+
+    on_context(function(it,apply){
+        it.has_condition(is_apply_message).with(message);
+
+        it.has_condition(is_apply_started)
+            .when_not_pass_call(apply_not_started_handler);
+
+        it.has_condition(not(has_same_phone)).with(message)
+            .when_not_pass_call(reply_application.repeat).with(message.phone);
+
+        would(record_apply).when(all(conditions_in(it))).pass();
+    });
+
+    on_context(function(it, bidding){
+        it.has_condition(is_bid);
+
+        it.has_condition(is_bid_started)
+            .when_not_pass_call(bid_not_started_handler);
+
+        it.has_condition(is_applied).with(message.phone,activity_name)
+            .when_not_pass_call(warning_not_applied).with(message.phone);
+
+        it.has_condition(not(has_bidded)).with(message)
+            .when_not_pass_call(warning_repeat_bid).with(message.phone);
+
+
+        would(record_bid).when(all(conditions_in(it))).pass();
+
+    })
+
+    on_context(function(it, voting){
+        it.has_condition(is_voting);
+
+        it.has_condition(is_voting_started)
+            .when_not_pass_call(voting_not_started_handler);
+
+        it.has_condition(not(has_voted)).with(message)
+            .when_not_pass_call(warning_repeat_voting).with(message.phone);
+
+        it.has_condition(is_voter_applied).with(message.phone,activity_name)
+            .when_not_pass_call(warning_voted_has_not_applied);
+
+        it.has_condition(is_candidate_exist).with(message, activity_name)
+            .when_not_pass_call(warning_candidate_not_exist);
+
+        it.has_condition(not(is_voter_voted)).with(message, activity_name)
+            .when_not_pass_call(warning_voter_has_voted);
+
+
+        would(record_vote).when(all(conditions_in(it))).pass();
+
+    })
+
+上面的代码的原始代码我就不贴了,很长,即便使用OO进行了封装也不过是掩盖住了分支之间的关系.
+而修改后的代码把原本很深的分支判断给拉平到一级上,这样需要删减条件的时候,可以非常直观得进行操作.
+在上面的基础上我可以通过DSL,很低成本的扩展或关闭功能.
+比如"报名"结束才能"投票"还是随时可以"报名",可以"投票",还是不用"报名"就可以"投票"
+比如"投过票的"不能参与"竞价游戏"等等.
+
