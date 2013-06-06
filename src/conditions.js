@@ -17,10 +17,21 @@ var conditions_in = function(context){
 function _build_condition_handler(condition) {
     condition.when_not_pass_call = function (handler) {
         condition.not_pass_handler = handler;
+        condition.current_define_not_pass = true;
         return condition;
     }
     condition.when_pass_call = function (handler) {
         condition.pass_handler = handler;
+        condition.current_define_pass= true;
+        return condition;
+    }
+    condition.with = function(){
+        if(condition.current_define_pass){
+            condition.pass_args = arguments;
+        }
+        if(condition.current_define_not_pass){
+            condition.not_pass_args = arguments;
+        }
         return condition;
     }
     return condition;

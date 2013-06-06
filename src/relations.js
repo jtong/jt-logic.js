@@ -27,10 +27,10 @@ Conditions.prototype.go_through_conditions = function(all_pass_judge) {
         var current_pass = condition();
         all_pass_judge(current_pass);
         if (!current_pass && condition.not_pass_handler) {
-            condition.not_pass_handler();
+            condition.not_pass_handler.apply(null, condition.not_pass_args);
         }
         if (current_pass && condition.pass_handler) {
-            condition.pass_handler();
+            condition.pass_handler.apply(null, condition.pass_args);
         }
     }
 }

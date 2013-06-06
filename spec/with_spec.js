@@ -56,6 +56,7 @@ describe('Logic With',function(){
         expect(param_handle2).toBe(param2_flag);
 
     });
+
     it("should do with params when rule is not pass given all condition is true",function(){
         var param1_flag = "param 1";
         var param2_flag = "param 2";
