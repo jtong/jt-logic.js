@@ -13,7 +13,7 @@ describe('Logic Would',function(){
     })
 
     it("should do when only call would",function(){
-      would(be_called)();
+      would(be_called).go();
       expect(called_flag).toBe(true);
 
     });
@@ -47,5 +47,4 @@ describe('Logic Would',function(){
     });
 })
 
-//pass_handler
-//
+

@@ -1,33 +1,37 @@
 var would = function(action){
     var result;
-    if(action.conditions){
-        result = {}
-    }else{
-        result = function(){
-            action();
-        }
+
+    result = {}
+    result.action = action;
+    result.go = function(){
+        this.action.apply(null,this.args);
     }
+    result.with = function(){
+        this.args = arguments;
+        return this;
+    }
+
 
     result.when = function(condition_or_conditions){
         if(condition_or_conditions.conditions){
-          condition_or_conditions.action = this.action;
-          return condition_or_conditions;
+            condition_or_conditions.action = this.action;
+            condition_or_conditions.action_args = this.args;
+            return condition_or_conditions;
         }
 
         this.condition = condition_or_conditions;
         this.pass = function(){
             if(this.condition()){
-                this.action();
+                this.action.apply(null,this.args);
             }
         }
         this.not_pass = function(){
             if(!this.condition()){
-                this.action();
+                this.action.apply(null,this.args);
             }
         }
         return this;
     };
-    result.action = action;
     return result;
 }
 
