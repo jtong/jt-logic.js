@@ -72,6 +72,23 @@ describe('Logic With',function(){
 
     });
 
+    it("should go through all conditions call pass and not pass one by one",function(){
+        var param1_flag = "param 1";
+        var param2_flag = "param 2";
+
+        on_context(function(it){
+            it.has_condition(condition_is_false)
+                .when_not_pass_call(be_called_need_params)
+                .with(param1_flag,param2_flag);
+
+            it.go_through();
+        })
+
+        expect(param_handle1).toBe(param1_flag);
+        expect(param_handle2).toBe(param2_flag);
+
+    });
+
 
 })
 

@@ -6,6 +6,12 @@ Context.prototype.has_condition = function(condition_function){
     this.conditions.push(condition_function);
     return condition(condition_function);
 }
+
+Context.prototype.go_through = function(){
+    would(function(){})
+        .when(all(conditions_in(this))).pass();
+}
+
 var on_context = function(express_in_context){
     express_in_context(new Context);
 }
