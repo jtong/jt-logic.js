@@ -1,25 +1,29 @@
-   on_context(function(it){
-        it.has_condition(is_apply).with(message)
-            .when_pass_call(accept_apply).with(message);
-        it.has_condition(is_voting).with(message)
-            .when_pass_call(accept_voting).with(message);
-        it.has_condition(is_bid).with(message)
-            .when_pass_call(accpet_bid).with(message);
-        it.go_through();
-    })
+#样例1
+
+    on_context(function(it){
+         it.has_condition(is_apply).with(message)
+             .when_pass_call(accept_apply).with(message);
+         it.has_condition(is_voting).with(message)
+             .when_pass_call(accept_voting).with(message);
+         it.has_condition(is_bid).with(message)
+             .when_pass_call(accpet_bid).with(message);
+         it.go_through();
+     })
+
 上面的代码等价于下面的代码:
-     if(is_apply(message))
-     {
-         accept_apply(message);
-     }
-     if(is_voting(message))
-     {
-         accept_voting(message);
-     }
-     if(is_bid(message))
-     {
-         accpet_bid(message);
-     }
+
+    if(is_apply(message))
+    {
+        accept_apply(message);
+    }
+    if(is_voting(message))
+    {
+        accept_voting(message);
+    }
+    if(is_bid(message))
+    {
+        accpet_bid(message);
+    }
 
 其实看起来反而更啰嗦了
 不过会强制人们使用函数,所以会避免下面的情况
