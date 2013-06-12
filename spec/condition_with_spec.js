@@ -1,4 +1,4 @@
-describe('Logic With',function(){
+describe('Condition With',function(){
     var param_handle1;
     var param_handle2;
 

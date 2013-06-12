@@ -1,4 +1,4 @@
-describe('when condition combinator while judging',function(){
+describe('When condition combinator while judging',function(){
 
     beforeEach(function(){
         called_flag = false;

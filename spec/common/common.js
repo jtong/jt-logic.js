@@ -1,4 +1,6 @@
 var called_flag;
+var condition_a_handled;
+var condition_b_handled;
 
 function be_called(){
     called_flag = true;

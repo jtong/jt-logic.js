@@ -1,4 +1,4 @@
-describe('when condition combinator while judging on context',function(){
+describe('When condition combinator while judging on context',function(){
 
     beforeEach(function(){
         called_flag = false;

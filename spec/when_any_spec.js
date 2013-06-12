@@ -1,4 +1,4 @@
-describe('when condition combinator is any',function(){
+describe('When condition combinator is any',function(){
 
     beforeEach(function(){
         called_flag = false;
