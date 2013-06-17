@@ -34,10 +34,12 @@ function _build_condition_handler(condition) {
     condition.with = function(){
         if(condition.current_define_pass){
             condition.pass_args = arguments;
-        }
-        if(condition.current_define_not_pass){
+        }else if(condition.current_define_not_pass){
             condition.not_pass_args = arguments;
+        }else {
+            condition.self_params = arguments;
         }
+
         return condition;
     }
     return condition;
