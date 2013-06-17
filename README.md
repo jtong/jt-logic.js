@@ -54,55 +54,56 @@
 
 比如下面的代码,是上面代码中把所有的处理函数inline之后,再重构的结果:
 
-    on_context(function(it,apply){
-        it.has_condition(is_apply_message).with(message);
+    on_context(function(it,signup){
+            it.has_condition(is_apply_message).with(message);
 
-        it.has_condition(is_apply_started)
-            .when_not_pass_call(apply_not_started_handler);
+            it.has_condition(is_apply_started)
+                .when_not_pass_call(apply_not_started_handler).with(message);
 
-        it.has_condition(not(has_same_phone)).with(message)
-            .when_not_pass_call(reply_application.repeat).with(message.phone);
+            it.has_condition(not_has_same_phone).with(message)
+                .when_not_pass_call(reply_application.repeat).with(message.phone);
 
-        would(record_apply).when(all(conditions_in(it))).pass();
+            var record_apply = build_action("record_apply").with({message:message, activity_name:activity_name})
+                                .notify(save_activity_apply_info, render_apply_info);
+
+            would(record_apply).when(all(conditions_in(it))).pass_and_break_first();
     });
 
     on_context(function(it, bidding){
-        it.has_condition(is_bid);
+        it.has_condition(is_bid).with(message);
 
         it.has_condition(is_bid_started)
-            .when_not_pass_call(bid_not_started_handler);
+            .when_not_pass_call(bid_not_started_handler).with(message);
 
         it.has_condition(is_applied).with(message.phone,activity_name)
             .when_not_pass_call(warning_not_applied).with(message.phone);
 
-        it.has_condition(not(has_bidded)).with(message)
+        it.has_condition(not_has_bidden).with(message.phone, activity_name)
             .when_not_pass_call(warning_repeat_bid).with(message.phone);
 
+        it.has_condition(bigger_than_bottom_smaller_than_top).with(message.phone, activity_name)
+            .when_not_pass_call(warning_out_of_range).with(message.phone);
 
-        would(record_bid).when(all(conditions_in(it))).pass();
+        would(record_bid).when(all(conditions_in(it))).pass_and_break_first();
 
-    })
+    });
 
     on_context(function(it, voting){
-        it.has_condition(is_voting);
+        it.has_condition(is_voting).with(message);
 
         it.has_condition(is_voting_started)
-            .when_not_pass_call(voting_not_started_handler);
+            .when_not_pass_call(voting_not_started_handler).with(message);
 
-        it.has_condition(not(has_voted)).with(message)
+        it.has_condition(is_voter_applied).with(message,activity_name)
+            .when_not_pass_call(warning_voted_has_not_applied).with(message.phone);
+
+        it.has_condition(not_has_voted).with(message, activity_name)
             .when_not_pass_call(warning_repeat_voting).with(message.phone);
-
-        it.has_condition(is_voter_applied).with(message.phone,activity_name)
-            .when_not_pass_call(warning_voted_has_not_applied);
 
         it.has_condition(is_candidate_exist).with(message, activity_name)
             .when_not_pass_call(warning_candidate_not_exist);
 
-        it.has_condition(not(is_voter_voted)).with(message, activity_name)
-            .when_not_pass_call(warning_voter_has_voted);
-
-
-        would(record_vote).when(all(conditions_in(it))).pass();
+        would(record_vote).when(all(conditions_in(it))).pass_and_break_first();
 
     })
 
